@@ -14,7 +14,7 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 
 // request of content tyep application/x-www-form-urlcoded
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route application working chck 
 app.get('/', (req, res) => {
@@ -25,10 +25,15 @@ app.get('/', (req, res) => {
 
 const db = require('./app/model');
 
+// router
+const categoriesRoute = require('./app/router/category.route');
+
+app.use('/api/v1/category', categoriesRoute);
+
 
 
 // set port listing for request
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
-}) 
+})
