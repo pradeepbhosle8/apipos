@@ -27,9 +27,11 @@ const db = require('./app/model');
 
 // router
 const categoriesRoute = require('./app/router/category.route');
+const customerRoute = require('./app/router/customer.route');
+
 
 app.use('/api/v1/category', categoriesRoute);
-
+app.use('/api/v1/customers', customerRoute);
 
 
 // set port listing for request
