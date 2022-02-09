@@ -1,6 +1,6 @@
 const db = require('../model');
 
-const Employee = db.employees;
+const Employees = db.employees;
 
 const { Op } = require('sequelize');
 
@@ -8,23 +8,25 @@ const { Op } = require('sequelize');
 exports.createEmployee = async(req, res) => {
 
     const employeeData = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        phone_number: req.body.phone_number,
-        job_id: req.body.job_id,
-        hired_date: req.body.hired_date,
-        location_id: req.body.location_id
-    }
-    console.log(employeeData);
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            phone_number: req.body.phone_number,
+            job_id: req.body.job_id,
+            hired_date: req.body.hired_date,
+            location_id: req.body.location_id
+        }
+        // console.log(employeeData);
 
-    await Employee.create(employeeData)
+    await Employees.create(employeeData)
         .then((data) => {
+
             res.status(200).send({
                 message: 'Employee Create Sucessfully'
             })
         })
         .catch(err => {
+            // console.log(err);
             res.status(500).send({
                 message: 'Some Error Found'
             })
@@ -35,7 +37,7 @@ exports.createEmployee = async(req, res) => {
 // retrive employee
 exports.findAllEmployee = async(req, res) => {
 
-    await Employee.findAll({})
+    await Employees.findAll({})
         .then((data) => {
             res.status(200).send(data)
         })
@@ -52,7 +54,7 @@ exports.findOneEmployee = async(req, res) => {
 
     const id = req.params.id;
 
-    await Employee.findOne({
+    await Employees.findOne({
             where: {
                 employee_id: id
             }
@@ -73,7 +75,7 @@ exports.updateEmployee = async(req, res) => {
 
     const id = req.params.id;
 
-    await Employee.update(req.body, {
+    await Employees.update(req.body, {
             where: {
                 employee_id: id
             }
@@ -102,7 +104,7 @@ exports.destroyEmployee = async(req, res) => {
 
     const id = req.params.id;
 
-    await Employee.destroy({
+    await Employees.destroy({
             where: {
                 employee_id: id
             }
@@ -130,7 +132,7 @@ exports.destroyEmployee = async(req, res) => {
 exports.searchEmployeeByName = async(req, res) => {
 
     const first_name = req.body.first_name;
-    await Employee.findAll({
+    await Employees.findAll({
             where: {
                 first_name: {
                     [Op.like]: `%${first_name}%`
