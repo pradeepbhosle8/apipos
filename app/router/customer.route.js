@@ -20,6 +20,6 @@ route.put('/:id', customerController.updateCustomer);
 route.delete('/:id', customerController.destroyCustomer);
 
 // search by first name customer
-route.get('/search/customer', customerController.searchCustomers);
+route.post('/search/customer', customerController.searchCustomers);
 
 module.exports = route;
