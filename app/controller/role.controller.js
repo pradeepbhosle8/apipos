@@ -1,89 +1,21 @@
 const db = require('../model');
 
-const Jobs = db.job;
+const Role = db.role;
 
-const { Op } = require('sequelize');
+const { Op } = require('express');
 
-// create Job
-exports.createJob = async(req, res) => {
+// create role
+exports.createRole = async(req, res) => {
 
-    const jobData = {
-            job_title: req.body.job_title,
-            salary: req.body.salary,
-            login_time: req.body.login_time,
-            logout_time: req.body.logout_time,
+    const roleData = {
+        name: req.body.name
+    }
 
-        }
-        // console.log(jobData);
-    await Jobs.create(jobData)
+    await Role.create(roleData)
         .then((data) => {
             res.status(200).send({
-                message: 'Job Create Sucessfully'
+                message: 'Role add succesfully'
             })
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: 'Some Error Found'
-            })
-        })
-}
-
-// retrive recoard
-exports.findAllJobs = async(req, res) => {
-
-    await Jobs.findAll({})
-        .then((data) => {
-            res.status(200).send(data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: 'Some Error Found'
-            })
-        })
-
-}
-
-// get single record
-exports.findOneJobs = async(req, res) => {
-
-    const id = req.params.id;
-
-    await Jobs.findOne({
-            where: {
-                job_id: id
-            }
-        })
-        .then((data) => {
-            res.status(200).send(data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: 'Some Error Found'
-            })
-        })
-
-}
-
-// update jobs
-exports.updateJobs = async(req, res) => {
-
-    const id = req.params.id;
-
-    await Jobs.update(req, body, {
-            where: {
-                job_id: id
-            }
-        })
-        .then((data) => {
-            if (data == 1) {
-                res.status(200).send({
-                    message: 'Update Sucessfully'
-                })
-            } else {
-                res.status(500).send({
-                    message: 'Some Error Found'
-                })
-            }
         })
         .catch(err => {
             res.status(500).send({
@@ -93,14 +25,77 @@ exports.updateJobs = async(req, res) => {
 
 }
 
-// delete recoard
-exports.destroyJob = async(req, res) => {
+// retrive all 
+exports.findAllRole = async(req, res) => {
+
+    await Role.findAll({})
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 'Some Error Found'
+            })
+        })
+
+}
+
+// get single recoard
+exports.findOneRole = async(req, res) => {
 
     const id = req.params.id;
 
-    await Jobs.destroy({
+    await Role.findOne({
             where: {
-                job_id: id
+                id: id
+            }
+        })
+        .then((data) => {
+            res.status(200).send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 'SOme Error Found'
+            })
+        })
+
+}
+
+// update Role
+exports.updateRole = async(req, res) => {
+
+    const id = req.params.id;
+    await Role.update(req.body, {
+            where: {
+                id: id
+            }
+        })
+        .then((data) => {
+            if (data == 1) {
+                res.status(200).send({
+                    message: 'Role Update Successfully'
+                })
+            } else {
+                res.status(500).send({
+                    message: 'Error Found'
+                })
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 'Some Error Found'
+            })
+        })
+
+}
+
+// delete Role
+exports.destroyRole = async(req, res) => {
+    const id = req.params.id;
+
+    await Role.destroy({
+            where: {
+                id: id
             }
         })
         .then((data) => {
@@ -110,14 +105,16 @@ exports.destroyJob = async(req, res) => {
                 })
             } else {
                 res.status(500).send({
-                    message: 'Some Error Found'
+                    message: 'Error Found'
                 })
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: 'Error Found'
+                message: 'Some Error Found'
             })
         })
 
 }
+
+// search later
