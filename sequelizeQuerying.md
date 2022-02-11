@@ -318,4 +318,4 @@ console.log(rows);
 # Raw Queries
 const { QueryTypes } = require('sequelize');
 const users = await sequelize.query("SELECT * FROM `users`", { type: QueryTypes.SELECT });
-// We didn't need to destructure the result here - the results were returned directly
+// We didn't need to destructure the result here - the results were returned directly`
