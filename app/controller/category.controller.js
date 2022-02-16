@@ -29,7 +29,7 @@ exports.findAllCategory = async(req, res) => {
 
     await Categories.findAll({})
         .then((data) => {
-            res.status(200).send(data)
+            res.status(200).send({ data })
         })
         .catch(err => {
             res.status(500).send({
