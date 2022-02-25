@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Categories = sequelize.define('categories', {
-        category_id:{
+        category_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -11,20 +11,19 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING
         },
-        create_at:{
+        create_at: {
             type: 'TIMESTAMP',
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
         },
-        update_at:{
-            type:'TIMESTAMP',
+        update_at: {
+            type: 'TIMESTAMP',
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
-        }
-    },
-        {
-            timestamps: false
-        }
-    )
+        },
+    }, {
+        timestamps: false,
+        paranoid: true
+    })
     return Categories;
 }

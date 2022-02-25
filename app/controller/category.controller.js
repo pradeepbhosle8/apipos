@@ -28,8 +28,8 @@ exports.createCategories = async(req, res) => {
 exports.findAllCategory = async(req, res) => {
 
     await Categories.findAll({})
-        .then((data) => {
-            res.status(200).send({ data })
+        .then((category) => {
+            res.status(200).send({ category })
         })
         .catch(err => {
             res.status(500).send({
@@ -48,7 +48,8 @@ exports.findOneCategory = async(req, res) => {
     await Categories.findOne({
             where: {
                 category_id: id
-            }
+            },
+
         })
         .then((data) => {
             res.status(200).send(data)
@@ -98,7 +99,8 @@ exports.distroyCategory = async(req, res) => {
     await Categories.destroy({
             where: {
                 category_id: id
-            }
+            },
+            paranoid: true
         })
         .then((data) => {
             if (data == 1) {

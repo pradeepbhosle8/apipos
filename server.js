@@ -5,12 +5,12 @@ const cors = require('cors');
 const app = express();
 
 var corsOption = {
-    origin: 'http://localhost:4300/',
+    origin: 'http://localhost:3000/',
     optionsSuccessStatus: 200, // For legacy browser support
-    methods: "GET, PUT"
+    methods: "GET, PUT, POST, DELETE"
 }
 
-app.use(cors(corsOption));
+app.use(cors());
 // app.use(cors())
 
 // request of content type application/json
@@ -26,13 +26,14 @@ app.get('/', (req, res) => {
     })
 })
 
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
-
 
 
 const db = require('./app/model');
