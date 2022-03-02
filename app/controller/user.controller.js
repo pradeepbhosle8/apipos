@@ -1,12 +1,13 @@
 const db = require('../model');
 
 const Users = db.users;
-
+const role = db.role;
 const { Op } = require('express');
 const authConfig = require('../config/auth.config');
 
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+
 
 
 // create Register User
@@ -39,7 +40,13 @@ exports.createUser = async(req, res) => {
 // get all
 exports.findAllUser = async(req, res) => {
 
-    await Users.findAll({})
+    await Users.findAll({
+            attributes: ['name', 'email', 'username', 'image'],
+            include: [
+                { model: role, attributes: ['name'], required: true }
+            ]
+
+        })
         .then((data) => {
             res.status(200).send(data)
         })
@@ -105,7 +112,8 @@ exports.destroyUser = async(req, res) => {
     await Users.destroy({
             where: {
                 id: id
-            }
+            },
+            peron
         })
         .then((data) => {
             if (data == 1) {

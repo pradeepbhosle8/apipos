@@ -33,6 +33,10 @@ db.type = require('./type.model')(sequelize, Sequelize);
 db.users = require('./users.model')(sequelize, Sequelize);
 
 
+db.role.hasOne(db.users);
+db.users.belongsTo(db.role);
+
+
 db.sequelize.sync({ force: false }).then(() => {
     console.log('Drop And RE-SYNC DB')
 })
